@@ -27,10 +27,4 @@ git clone git@github.com:Grupo-SEMEAR-USP/Remy_manipulador.git $WS_SRC_FOLDER/re
 # Baixando o setup do micro-ROS (Branch Humble)
 git clone -b humble https://github.com/micro-ROS/micro_ros_setup.git $WS_SRC_FOLDER/micro_ros_setup
 
-#point_lio_ros2
-#git clone https://github.com/dfloreaa/point_lio_ros2 $WS_SRC_FOLDER/point_lio_ros2
-
-#fast lio
-#git clone https://github.com/Ericsii/FAST_LIO.git $WS_SRC_FOLDER/fast_lio --recursive
-
 echo "Pronto! Construa e inicie o container rodando: docker compose up -d --build"

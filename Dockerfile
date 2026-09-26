@@ -56,6 +56,9 @@ RUN apt-get update && apt-get upgrade -y \
         ros-humble-tf2-geometry-msgs \
         ros-humble-robot-localization \
         ros-humble-tf-transformations \
+        libpcl-dev \
+        ros-humble-pcl-ros \
+        ros-humble-pcl-conversions \
         python3-transforms3d \
     && rm -rf /var/lib/apt/lists/*
 
