@@ -15,14 +15,17 @@ git clone --branch ros2 https://github.com/introlab/rtabmap_ros.git $WS_SRC_FOLD
 # sllidar ros2
 git clone https://github.com/Slamtec/sllidar_ros2.git $WS_SRC_FOLDER/sllidar_ros2
 
-# Navegação Remy
-git clone git@github.com:Grupo-SEMEAR-USP/Remy_nav.git $WS_SRC_FOLDER/remy_navigation
+# Inicialização e Navegação Remy
+git clone git@github.com:Grupo-SEMEAR-USP/Remy_nav.git $WS_SRC_FOLDER/remy_main
 
-# Visão Remy
-git clone git@github.com:Grupo-SEMEAR-USP/Remy_visao.git $WS_SRC_FOLDER/remy_vision
+# Interação Remy
+git clone git@github.com:Grupo-SEMEAR-USP/Remy_interacao.git $WS_SRC_FOLDER/remy_interaction
 
 # Manipulador Remy
 git clone git@github.com:Grupo-SEMEAR-USP/Remy_manipulador.git $WS_SRC_FOLDER/remy_manipulator
+
+# Baixando o setup do micro-ROS (Branch Humble)
+git clone -b humble https://github.com/micro-ROS/micro_ros_setup.git $WS_SRC_FOLDER/micro_ros_setup
 
 #point_lio_ros2
 #git clone https://github.com/dfloreaa/point_lio_ros2 $WS_SRC_FOLDER/point_lio_ros2
