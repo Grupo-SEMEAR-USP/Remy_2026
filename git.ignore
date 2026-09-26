@@ -1,0 +1,10 @@
+# Ignora todo o ambiente de desenvolvimento do container e workspaces
+containers/
+
+# Ignora pastas de cache do Python (caso use no host)
+__pycache__/
+*.pyc
+
+# Ignora arquivos temporários do editor
+.vscode/
+*.swp

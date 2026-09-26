@@ -1,0 +1,36 @@
+services:
+  remy_docker:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: remy_container
+    network_mode: "host"
+    privileged: true
+
+    environment:
+      - DISPLAY=${DISPLAY}
+      - QT_X11_NO_MITSHM=1
+      - LIBGL_ALWAYS_SOFTWARE=1
+      - PULSE_SERVER=unix:/run/user/1000/pulse/native
+
+    devices:
+      - "/dev/input:/dev/input"
+      - "/dev/snd:/dev/snd"
+
+    volumes:
+      - /tmp/.X11-unix:/tmp/.X11-unix:rw
+      - /dev:/dev
+      - /dev/input:/dev/input
+      - /run/user/1000/pulse/native:/run/user/1000/pulse/native
+      - ~/.config/pulse/cookie:/home/remy/.config/pulse/cookie:ro 
+      - ./containers/humble-remy/remy_ws/src:/remy_ws/src
+
+    group_add:
+      - dialout
+      - audio
+      - video
+
+    shm_size: '2gb'
+
+    stdin_open: true
+    tty: true
