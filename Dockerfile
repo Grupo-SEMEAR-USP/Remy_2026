@@ -59,6 +59,7 @@ RUN apt-get update && apt-get upgrade -y \
         libpcl-dev \
         ros-humble-pcl-ros \
         ros-humble-pcl-conversions \
+        ros-humble-image-geometry \
         python3-transforms3d \
     && rm -rf /var/lib/apt/lists/*
 
