@@ -26,6 +26,18 @@ Siga estes passos apenas na **primeira vez** que for configurar o projeto na sua
 3. Construa a imagem do Docker e inicie o container pela primeira vez (isso pode levar alguns minutos):
    ```bash
    docker compose up -d --build
+
+4. Entre no terminal do robô para realizar a Primeira Compilação:
+   ```bash
+   docker exec -it remy_container bash
+   ```
+   
+   Compilando o Workspace pela primeira vez: A primeira compilação processa bibliotecas pesadas de mapeamento e visão. Para evitar que o alto consumo de memória RAM trave o seu computador (OOM Killer), utilize obrigatoriamente o comando abaixo. Ele limita o uso do processador e compila um pacote por vez:
+   ```bash
+   MAKEFLAGS="-j4" colcon build --executor sequential
+   ```
+   
+   Nota: Este build inicial demorará alguns minutos. Vá tomar um café.
    
 ## 💻 Fluxo de Trabalho Diário
 
@@ -41,13 +53,26 @@ Com o ambiente instalado, este será o seu guia de comandos para o dia a dia:
 
    Para interagir com o ROS 2, compilar códigos ou rodar nós, abra o terminal de dentro do container:
    ```bash
-   docker exec -it remy_docker bash
+   docker exec -it remy_container bash
 
-3. Desligar o ambiente
+3. Compilação no Dia a Dia
+
+   Após o build inicial, o colcon é inteligente e só recompila os arquivos que você alterou. O risco de travar o PC acaba. Para compilar suas alterações diárias de forma rápida, use o comando padrão ou direcione para o seu pacote:
+
+   - Para compilar apenas o pacote que você está modificando (Recomendado e mais rápido):
+     ```bash
+     colcon build --packages-select nome_do_seu_pacote
+     ```
+   - Para compilar o workspace inteiro rapidamente (Não deve haver mais problemas de travamento):
+     ```bash
+     colcon build
+
+4. Desligar o ambiente
 
    Precisa liberar memória RAM e processamento para jogar ou usar outros softwares, mas não quer desligar o computador? Pause o container:
    ```bash
    docker compose stop
+   ```
 
 ## ⚡ Atalhos Rápidos (Aliases)
 
