@@ -23,6 +23,46 @@ Siga estes passos apenas na **primeira vez** que for configurar o projeto na sua
 2. Execute o script para baixar os repositórios (eles serão salvos em ./containers/humble-remy/remy_ws/src):
    ```bash
    ./prepareRemy.sh
+   ```
+
+
+     #### OBS: Caso o Docker não esteja instalado
+
+      Instale o Docker:
+
+      ```bash
+      sudo apt update
+
+      sudo apt install docker.io
+      ```
+
+      Instale o Docker Compose V2:
+      ```bash
+      sudo apt install docker-compose-v2
+      ```
+      Depois, habilite e inicie o serviço do Docker:
+      ```bash
+      sudo systemctl enable --now docker
+      ```
+
+      #### Permitir utilizar Docker sem sudo
+
+      ```bash
+      sudo usermod -aG docker $USER
+      ```
+
+      Depois desse comando, saia da sua sessão do Ubuntu e entre novamente.
+
+      Se preferir, também pode simplesmente reiniciar o computador.
+
+      Após entrar novamente, teste:
+
+      ```bash
+      docker run hello-world
+      ```
+
+      Se aparecer a mensagem de boas-vindas do Docker, a instalação foi concluída corretamente.
+   
 3. Construa a imagem do Docker e inicie o container pela primeira vez (isso pode levar alguns minutos):
    ```bash
    docker compose up -d --build
