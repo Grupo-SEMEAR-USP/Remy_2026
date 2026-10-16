@@ -17,6 +17,9 @@ RUN apt-get update && apt-get upgrade -y \
         python3-pip \
         python3-serial \
         python3-dev \
+        python3-colcon-common-extensions \
+        python3-rosdep \
+        python3-vcstool \
         portaudio19-dev \
         build-essential \
         git \
@@ -25,6 +28,9 @@ RUN apt-get update && apt-get upgrade -y \
         lsb-release \
         nano \
         # ROS 2 tools
+        ros-humble-moveit \
+        ros-humble-topic-tools \
+        ros-humble-tf2-tools \
         ros-humble-rviz2 \
         ros-humble-plotjuggler-ros \
         ros-humble-xacro \
@@ -33,6 +39,7 @@ RUN apt-get update && apt-get upgrade -y \
         ros-humble-joint-state-publisher-gui \
         ros-humble-ros-gz \
         ros-humble-ign-ros2-control \
+        ros-humble-gz-ros2-control \
         ros-humble-ros-gz-bridge \
         ros-humble-ros-gz-sim \
         ros-humble-gazebo-ros-pkgs \
@@ -76,10 +83,23 @@ RUN pip3 install \
     piper-tts \
     ollama 
 
+# Inicializa o rosdep e compila a interface Python do MoveIt 2
+RUN if [ ! -f /etc/ros/rosdep/sources.list.d/20-default.list ]; then rosdep init; fi \
+    && rosdep update \
+    && apt-get update \
+    && mkdir -p /opt/ros2_deps/src \
+    && git clone https://github.com/AndrejOrsula/pymoveit2.git /opt/ros2_deps/src/pymoveit2 \
+    && . /opt/ros/humble/setup.sh \
+    && cd /opt/ros2_deps \
+    && rosdep install --from-paths src --ignore-src --rosdistro humble -y \
+    && colcon build --symlink-install \
+    && rm -rf /var/lib/apt/lists/*
+
 WORKDIR /remy_ws
 RUN mkdir -p /remy_ws/src && chown -R $USERNAME:$USERNAME /remy_ws
 
 RUN echo "source /opt/ros/humble/setup.bash" >> /etc/bash.bashrc
+RUN echo "source /opt/ros2_deps/install/setup.bash" >> /etc/bash.bashrc
 
 # Set the default user
 USER $USERNAME
@@ -91,3 +111,4 @@ RUN echo "alias cb='colcon build'" >> /home/$USERNAME/.bashrc \
     && echo "if [ -f /remy_ws/install/setup.bash ]; then source /remy_ws/install/setup.bash; fi" >> /home/$USERNAME/.bashrc 
 
 CMD ["/bin/bash"]
+
