@@ -56,6 +56,8 @@ RUN apt-get update && apt-get upgrade -y \
         ros-humble-tf2-geometry-msgs \
         ros-humble-robot-localization \
         ros-humble-tf-transformations \
+        # Câmera RealSense
+        ros-humble-realsense2-camera \
         libpcl-dev \
         ros-humble-pcl-ros \
         ros-humble-pcl-conversions \
@@ -63,7 +65,7 @@ RUN apt-get update && apt-get upgrade -y \
         python3-transforms3d \
     && rm -rf /var/lib/apt/lists/*
 
-# Instalação das bibliotecas Python para IA e Áudio
+# Instalação das bibliotecas Python para IA, Áudio e Visão
 RUN pip3 install \
     SpeechRecognition \
     gTTS \
@@ -72,7 +74,7 @@ RUN pip3 install \
     pyaudio \
     faster-whisper \
     piper-tts \
-    ollama
+    ollama 
 
 WORKDIR /remy_ws
 RUN mkdir -p /remy_ws/src && chown -R $USERNAME:$USERNAME /remy_ws
