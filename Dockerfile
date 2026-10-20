@@ -69,6 +69,8 @@ RUN apt-get update && apt-get upgrade -y \
         ros-humble-pcl-ros \
         ros-humble-pcl-conversions \
         ros-humble-image-geometry \
+        ros-humble-rqt-image-view \
+        usbutils \
         python3-transforms3d \
     && rm -rf /var/lib/apt/lists/*
 
