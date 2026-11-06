@@ -63,6 +63,7 @@ RUN apt-get update && apt-get upgrade -y \
         ros-humble-tf2-geometry-msgs \
         ros-humble-robot-localization \
         ros-humble-tf-transformations \
+        ros-humble-laser-filters \
         # Câmera RealSense
         ros-humble-realsense2-camera \
         libpcl-dev \
@@ -96,6 +97,26 @@ RUN if [ ! -f /etc/ros/rosdep/sources.list.d/20-default.list ]; then rosdep init
     && rosdep install --from-paths src --ignore-src --rosdistro humble -y \
     && colcon build --symlink-install \
     && rm -rf /var/lib/apt/lists/*
+
+# Micro-ros
+RUN apt-get update && apt-get install -y \
+    python3-pip \
+    flex \
+    bison \
+    usbutils \
+    clang-tidy
+
+RUN rosdep init || true
+RUN rosdep update
+
+WORKDIR /opt/uros_ws
+RUN git clone -b humble https://github.com/micro-ROS/micro_ros_setup.git src/micro_ros_setup \
+    && /bin/bash -c "source /opt/ros/humble/setup.bash && colcon build" \
+    && /bin/bash -c "source /opt/ros/humble/setup.bash && source install/setup.bash && ros2 run micro_ros_setup create_agent_ws.sh" \
+    && /bin/bash -c "source /opt/ros/humble/setup.bash && source install/setup.bash && ros2 run micro_ros_setup build_agent.sh" \
+    && rm -rf /var/lib/apt/lists/*
+
+RUN echo "source /opt/uros_ws/install/setup.bash" >> /etc/bash.bashrc
 
 WORKDIR /remy_ws
 RUN mkdir -p /remy_ws/src && chown -R $USERNAME:$USERNAME /remy_ws

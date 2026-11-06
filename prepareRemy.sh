@@ -24,7 +24,7 @@ git clone git@github.com:Grupo-SEMEAR-USP/Remy_interacao.git $WS_SRC_FOLDER/remy
 # Manipulador Remy
 git clone git@github.com:Grupo-SEMEAR-USP/Remy_manipulador.git $WS_SRC_FOLDER/remy_manipulator
 
-# Baixando o setup do micro-ROS (Branch Humble)
-git clone -b humble https://github.com/micro-ROS/micro_ros_setup.git $WS_SRC_FOLDER/micro_ros_setup
+# Firmware Remy
+git clone git@github.com:Grupo-SEMEAR-USP/Remy_firmware2026.git $WS_SRC_FOLDER/remy_firmware
 
 echo "Pronto! Construa e inicie o container rodando: docker compose up -d --build"
